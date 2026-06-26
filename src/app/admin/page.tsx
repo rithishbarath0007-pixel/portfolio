@@ -111,7 +111,7 @@ export default async function AdminDashboard() {
 
         <div className="flex gap-4 items-center p-4 bg-neutral-900/50 border border-neutral-800 rounded-xl">
           <span className="text-sm text-neutral-500">Top Pages:</span>
-          {topPagesData.map((page, i) => (
+          {topPagesData.map((page: typeof topPagesData[number], i: number) => (
             <div key={i} className="text-sm text-white bg-neutral-800 px-3 py-1 rounded-md">
               {page.page} <span className="text-neutral-500 ml-1">({page._count.page})</span>
             </div>
