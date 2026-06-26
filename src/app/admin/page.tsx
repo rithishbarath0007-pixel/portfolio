@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function AdminDashboard() {
-// 1. SECURITY CHECK: Verify if the user is logged in
+  // 1. SECURITY CHECK: Verify if the user is logged in
   const cookieStore = await cookies();
   const session = cookieStore.get('admin_session');
   
@@ -25,7 +25,6 @@ export default async function AdminDashboard() {
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
   // Fetch EVERYTHING in parallel for maximum speed
-  
   const [
     contactMessages,
     totalVisits,
@@ -36,7 +35,6 @@ export default async function AdminDashboard() {
     topPagesData,
     aiConversations
   ] = await Promise.all([
-    // THE FIX: Changed guestbookMessage to contactMessage
     prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' } }),
     prisma.pageVisit.count(),
     prisma.pageVisit.count({ where: { createdAt: { gte: startOfDay } } }),
@@ -49,14 +47,14 @@ export default async function AdminDashboard() {
       orderBy: { _count: { page: 'desc' } },
       take: 3,
     }),
- prisma.aiConversation.findMany({
+    prisma.aiConversation.findMany({
       include: {
         messages: { 
           orderBy: { createdAt: 'asc' }
         }
       },
       orderBy: {
-        createdAt: 'desc', // <-- Changed from updatedAt to createdAt
+        createdAt: 'desc', 
       },
       take: 20
     })
@@ -129,7 +127,8 @@ export default async function AdminDashboard() {
           <p className="text-neutral-500 italic">Inbox is empty.</p>
         ) : (
           <div className="grid grid-cols-1 gap-4">
-            {contactMessages.map((msg) => (
+            {/* TYPE APPLIED HERE */}
+            {contactMessages.map((msg: typeof contactMessages[number]) => (
               <div key={msg.id} className="p-6 bg-neutral-900 border border-neutral-800 rounded-2xl flex flex-col md:flex-row gap-6">
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-4">
@@ -161,12 +160,12 @@ export default async function AdminDashboard() {
           <p className="text-zinc-500 text-sm">No conversations yet.</p>
         ) : (
           <div className="space-y-4">
-            {aiConversations.map((convo) => (
+            {/* TYPE APPLIED HERE */}
+            {aiConversations.map((convo: typeof aiConversations[number]) => (
               <details 
                 key={convo.id} 
                 className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group"
               >
-                {/* The Glimpse / Header */}
                 <summary className="p-4 cursor-pointer flex justify-between items-center hover:bg-zinc-850 transition-colors list-none">
                   <div className="flex items-center gap-3">
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 text-blue-400">
@@ -175,7 +174,6 @@ export default async function AdminDashboard() {
                     <div>
                       <div className="font-medium text-white text-sm flex items-center gap-2">
                         Chat Session 
-                        {/* Displays the first chunk of their unique UUID */}
                         <span className="bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded text-xs font-mono">
                           ID: {convo.sessionId.split('-')[0]}
                         </span>
@@ -193,12 +191,11 @@ export default async function AdminDashboard() {
                   </div>
                 </summary>
 
-                {/* The Full Conversation (Hidden until clicked) */}
                 <div className="p-4 border-t border-zinc-800 bg-black/50 space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
-                  {convo.messages.map((msg) => (
+                  {/* TYPE APPLIED HERE */}
+                  {convo.messages.map((msg: typeof convo.messages[number]) => (
                     <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                       
-                      {/* Individual Message Timestamp & Role */}
                       <span className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1 flex items-center gap-1.5">
                         {msg.role === 'user' ? 'Visitor' : 'AI'}
                         <span className="text-zinc-600 normal-case">•</span>
