@@ -40,7 +40,10 @@ export async function getDashboardMetrics() {
       dailyVisits,
       weeklyVisits,
       monthlyVisits,
-      topPages: topPages.map(p => ({ page: p.page, views: p._count.page }))
+     topPages: topPages.map((p: typeof topPages[number]) => ({
+  page: p.page,
+  views: p._count.page,
+}))
     };
   } catch (error) {
     console.error('Failed to fetch metrics:', error);

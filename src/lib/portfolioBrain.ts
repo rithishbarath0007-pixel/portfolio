@@ -18,9 +18,13 @@
     "Tools: Git, GitHub, Vercel, Figma",
   ],
 
-  projects: [
-    "Currently in active build mode — working on projects right now. Nothing public yet, but things are in motion. Check the GitHub soon: github.com/rithishbarath0007-pixel",
-  ],
+ projects: [
+  {
+    name: "Portfolio Website",
+    desc: "Currently in active build mode. Check my GitHub soon for public releases.",
+    tech: "Next.js, TypeScript, Prisma, Supabase"
+  }
+],
 
   experience:
     "I've completed internships and have certifications — all listed and verified on my LinkedIn. Head over there for the full picture: linkedin.com/in/rithishbarath0007",
@@ -115,8 +119,8 @@ function generateResponse(intent: string): string {
       return `🎓 **Education:**\n\n${KB.education}`;
     case "contact":
       return `📫 **Contact:**\n\n${KB.contact}`;
-    case "freelance":
-      return `💼 **Freelance:**\n\n${KB.freelance}`;
+  case "freelance":
+  return `💼 **Freelance:**\n\n${KB.availability}`;
     default:
       return "🤔 I'm not entirely sure about that. Try asking about Rithish's **skills**, **projects**, **education**, or **freelance availability**!";
   }
