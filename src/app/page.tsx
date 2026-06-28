@@ -46,7 +46,7 @@ export default function Home() {
         className="max-w-4xl mx-auto text-center z-10"
       >
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight text-white mb-6 leading-[1.1]">
-          I'm Rithish_Barath N, an engineer and builder of full-stack apps people remember
+          I'm Rithish Barath N, an engineer and builder of full-stack apps people remember
         </h1>
       </motion.div>
 
