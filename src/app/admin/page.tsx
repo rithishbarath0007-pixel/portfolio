@@ -62,6 +62,10 @@ export default async function AdminDashboard() {
 
   const uniqueVisitors = uniqueVisitorsData.length;
 
+  // ✅ Helper: always format dates in IST regardless of where the server runs
+  const toIST = (date: Date | string, opts: Intl.DateTimeFormatOptions) =>
+    new Date(date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', ...opts });
+
   return (
     <main className="max-w-6xl mx-auto px-6 pt-32 pb-24 min-h-screen space-y-24">
       
@@ -127,7 +131,6 @@ export default async function AdminDashboard() {
           <p className="text-neutral-500 italic">Inbox is empty.</p>
         ) : (
           <div className="grid grid-cols-1 gap-4">
-            {/* TYPE APPLIED HERE */}
             {contactMessages.map((msg: typeof contactMessages[number]) => (
               <div key={msg.id} className="p-6 bg-neutral-900 border border-neutral-800 rounded-2xl flex flex-col md:flex-row gap-6">
                 <div className="flex-1 space-y-2">
@@ -141,8 +144,9 @@ export default async function AdminDashboard() {
                     {msg.message}
                   </p>
                 </div>
+                {/* ✅ FIX: was toLocaleDateString('en-US', ...) with no timezone → UTC on Vercel */}
                 <div className="text-xs text-neutral-500 shrink-0">
-                  {new Date(msg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                  {toIST(msg.createdAt, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
             ))}
@@ -160,7 +164,6 @@ export default async function AdminDashboard() {
           <p className="text-zinc-500 text-sm">No conversations yet.</p>
         ) : (
           <div className="space-y-4">
-            {/* TYPE APPLIED HERE */}
             {aiConversations.map((convo: typeof aiConversations[number]) => (
               <details 
                 key={convo.id} 
@@ -183,27 +186,22 @@ export default async function AdminDashboard() {
                       </div>
                     </div>
                   </div>
+                  {/* ✅ FIX: was toLocaleString(undefined, ...) → undefined = UTC on Vercel's servers */}
                   <div className="text-xs text-zinc-400 font-medium tracking-wide">
-                    {new Date(convo.createdAt).toLocaleString(undefined, {
-                      dateStyle: 'medium',
-                      timeStyle: 'short'
-                    })}
+                    {toIST(convo.createdAt, { dateStyle: 'medium', timeStyle: 'short' })}
                   </div>
                 </summary>
 
                 <div className="p-4 border-t border-zinc-800 bg-black/50 space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
-                  {/* TYPE APPLIED HERE */}
                   {convo.messages.map((msg: typeof convo.messages[number]) => (
                     <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                       
                       <span className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1 flex items-center gap-1.5">
                         {msg.role === 'user' ? 'Visitor' : 'AI'}
                         <span className="text-zinc-600 normal-case">•</span>
+                        {/* ✅ FIX: was toLocaleTimeString(undefined, ...) → same UTC problem */}
                         <span className="text-zinc-600 normal-case">
-                          {new Date(msg.createdAt).toLocaleTimeString(undefined, {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
+                          {toIST(msg.createdAt, { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </span>
 
