@@ -31,19 +31,59 @@ export default function AboutPage() {
       </motion.div>
 
       {/* Profile Image / Gallery Placeholder */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-2xl aspect-[4/5] md:aspect-video rounded-[32px] overflow-hidden bg-neutral-900 border border-white/10 mb-32 relative"
-      >
-        {/* Replace with your actual photo */}
-        <img 
-          src="/about_me.jpg " 
-          alt="My Workspace" 
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
-        />
-      </motion.div>
+  
+<motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{
+    duration: 0.8,
+    delay: 0.2,
+    ease: [0.16, 1, 0.3, 1]
+  }}
+  className="
+    relative
+    w-full
+    max-w-2xl
+    h-[70vh]
+    rounded-[32px]
+    overflow-hidden
+    bg-neutral-900
+    border border-white/10
+    mb-32
+    flex items-center justify-center
+  "
+>
+  {/* Blurred background */}
+  <img
+    src="/about_me.jpg"
+    alt=""
+    className="
+      absolute
+      inset-0
+      w-full
+      h-full
+      object-cover
+      scale-110
+      blur-2xl
+      opacity-40
+    "
+  />
+
+  {/* Full image — never cropped */}
+  <img
+    src="/about_me.jpg"
+    alt="My Workspace"
+    className="
+      relative
+      z-10
+      w-full
+      h-full
+      object-contain
+    "
+  />
+</motion.div>
+
+
 
       {/* Workflow Section */}
       <div className="w-full">

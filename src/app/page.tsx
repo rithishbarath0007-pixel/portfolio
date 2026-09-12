@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import AIChatWidget from '@/components/AIChatWidget';
+
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -89,8 +89,7 @@ export default function Home() {
         })}
       </motion.div>
 
-      {/* The Floating AI Agent — unchanged */}
-      <AIChatWidget />
+     
 
     </main>
   );

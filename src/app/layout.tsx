@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AnalyticsTracker from '@/components/AnalyticsTracker';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import AIChatWidget from '@/components/AIChatWidget';
+import AnalyticsTracker from '@/app/components/AnalyticsTracker';
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
+import AIChatWidget from '@/app/components/AIChatWidget';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark">
       <body className={`${inter.className} min-h-screen relative selection:bg-white selection:text-black bg-black text-neutral-100 antialiased overflow-x-hidden`}>
         
         <AnalyticsTracker />

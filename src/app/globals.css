@@ -1,8 +1,13 @@
-
 @import "tailwindcss";
 
-/* Hide scrollbar for that clean, native-app Framer look */
+html {
+  scrollbar-width: none;
+}
+
+body {
+  scrollbar-width: none;
+}
+
 ::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
+  display: none;
 }

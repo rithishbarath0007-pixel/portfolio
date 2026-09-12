@@ -14,7 +14,7 @@ interface Message {
 
 export default function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'model', content: "Hi! I'm Rithish's Virtual Twin. Ask me about his tech stack, projects, or freelance availability!" }
   ]);
